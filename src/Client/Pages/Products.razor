@@ -1,0 +1,37 @@
+﻿@page "/products"
+@using Domain
+@using System.Net.Http
+@using System.Net.Http.Json
+@using System.Threading.Tasks
+@using Client.Components.Products
+@inject HttpClient Http
+
+<h3>Kies Producten</h3>
+@if(_products == null) 
+{
+    <p>Loading...</p>
+}
+else 
+{
+
+    <div class="table-responsive">
+        <table class="table table-responsive p-4 products-table">
+            <thead>
+                <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Beschrijving</th>
+                    <th scope="col">Prijs</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in _products)
+                {
+                    <ProductDetail Product="product"></ProductDetail>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+    

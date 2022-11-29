@@ -1,35 +1,218 @@
-﻿<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item" href="https://bulma.io">
-            <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+﻿@using Client.Components.Products;
+<div class="headerPC">
+    <div class="left">
+        <a href="/" class="leftLogo">
+            <img src="/images/HeaderDelawareLogo.png" />
         </a>
-
-        <a role="button" @onclick="ToggleMenuDisplay" class="navbar-burger @isOpenClass" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
+        <a href="products" class="leftButton">
+            Producten
+        </a>
+        <a href="orders" class="leftButton">
+            Bestellingen
         </a>
     </div>
-
-    <div class="navbar-menu @isOpenClass">
-        <div class="navbar-start">
-            <NavLink class="navbar-item" href="" ActiveClass="is-active" Match="NavLinkMatch.All">
-                Producten
-            </NavLink>
+    <div class="center">
+        <div class="centerSearch">
+            <input class="centerSearchInput" type="text" placeholder=" Zoek..." name="search">
+            <button class="centerSearchButton">
+                <img src="/images/HeaderSearchIcon.png" />
+            </button>
         </div>
+    </div>
+    <div class="right">
+        <button class="rightButton rightButtonNotifications" @onclick="pressedNotifications">
+            <img src="/images/HeaderNotificationsIcon.png" />
+        </button>
+        <button class="rightButton rightButtonShoppingCart" @onclick="pressedShoppingCart">
+            <img src="/images/HeaderShoppingCartIcon.png" />
+        </button>
+        @if (collapseShoppingCart == true)
+        {
+        }
+        else
+        {
+            <ShoppingCart/>
+        }
+        @if (collapseNotifications == true)
+        {
+        }
+        else
+        {
+            <div class="NotificationsMenu">
+                <p class="NotificationsMenuTitle">Meldingen</p>
+                <div class="notificationContainer">
+                    @foreach (var noti in AllNotificationsHead)
+                    {
+                        if (noti.IsSeen == false)
+                        {
+                            if (noti.Message != null)
+                            {
+                                <div @onclick="@(() => { isSeen(noti); pressedNotifications();})">
+                                        <a href="orders/@noti.ordId">
+                                            <img src="/images/NotificationTruck.png" />
+                                            <p>@noti.Message.ToString()</p>
+                                        </a>
+                                </div>
+                            }
+                        }
+                    }
+@*                    <div>
+                        <a href="notificationPage" @onclick="pressedNotifications">
+                            <img src="/images/NotificationTruck.png" />
+                            <p>Uw Pakket wordt vandaag bezorgd</p>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="notificationPage" @onclick="pressedNotifications">
+                            <img src="/images/NotificationTruck.png" />
+                            <p>Uw Pakket wordt vandaag bezorgd</p>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="notificationPage" @onclick="pressedNotifications">
+                            <img src="/images/NotificationTruck.png" />
+                            <p>Uw Pakket wordt vandaag bezorgd</p>
+                        </a>
+                    </div>*@
 
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-                    <button class="button is-white" @onclick="OpenShoppingCart">
-                        <span class="icon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </span>
-                       <span class="tag">@Cart.Items.Count</span>
-                    </button>
-                    <AccessControl />
                 </div>
             </div>
-        </div>
+        }
+
     </div>
-</nav>
+</div>
+
+<div class="headerPhone">
+    <a href="/" class="menuLogo">
+        <img src="/images/HeaderDelawareLogo.png" />
+    </a>
+    <button class="navmenuToggler" @onclick="()=>collapseNavMenu = !collapseNavMenu">
+        <img src="/images/HeaderDropDownMenu.png" />
+    </button>
+</div>
+
+@if (collapseNavMenu == true)
+{
+}
+else
+{
+    <div class="dropDown">
+        <div class="phoneSearch">
+            <input class="phoneSearchInput" type="text" placeholder=" Zoek..." name="search">
+            <button class="phoneSearchButton">
+                <img src="/images/HeaderSearchIcon.png" />
+            </button>
+        </div>
+        <a href="products" class="phoneButton">
+            Producten
+        </a>
+        <a href="orders" class="phoneButton">
+            Bestellingen
+        </a>
+        <div class="phoneButtonIconsDiv">
+            <button class="phoneButtonIcon phoneButtonNotifications" @onclick="pressedPhoneCollapseNotifications">
+                <img src="/images/HeaderNotificationsIcon.png" />
+            </button>
+            <button class="phoneButtonIcon phoneButtonShoppingCart" @onclick="pressedPhonecollapseShoppingCart">
+                <img src="/images/HeaderShoppingCartIcon.png" />
+            </button>
+        </div>
+        @if (phoneCollapseShoppingCart == true)
+        {
+        }
+        else
+        {
+            <div class="phoneShoppingCart">
+                <div class="phoneShoppingCartTop">
+                    <p class="phoneShoppingCartTitle">Winkelwagen</p>
+                    <button class="closePhoneShoppingCart" @onclick="pressedClosePhonecollapseShoppingCart">
+                        <img src="/images/HeaderClose.png" />
+                    </button>
+                </div>
+                <p class="phoneShoppingCartItems">Items...</p>
+            </div>
+        }
+        @if (phoneCollapseNotifications == true)
+        {
+        }
+        else
+        {
+            <div class="phoneNotificationsMenu">
+                <div class="phoneNotificationsMenuTop">
+                    <p class="phoneNotificationsTitle">Meldingen</p>
+                    <button class="closePhoneNotifications" @onclick="pressedClosePhoneCollapseNotifications">
+                        <img src="/images/HeaderClose.png" />
+                    </button>
+                </div>
+                <div class="notificationContainer">
+                @foreach (var noti in AllNotificationsHead)
+                {
+                    if (noti.IsSeen == false)
+                    {
+                        if (noti.Message != null)
+                        {
+                                <div @onclick="@(() => { isSeen(noti); pressedNotifications(); pressedClosePhoneCollapseNotifications();})">
+                                <a href="orders/@noti.ordId">
+                                    <img src="/images/NotificationTruck.png" />
+                                    <p>@noti.Message.ToString()</p>
+                                </a>
+                            </div>
+                        }
+                    }
+                }
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private bool collapseNavMenu = true;
+    private bool collapseShoppingCart = true;
+    private bool collapseNotifications = true;
+    private bool phoneCollapseShoppingCart = true;
+    private bool phoneCollapseNotifications = true;
+
+
+
+    private void isSeen(Notification noti){
+        noti.isSeen(true);
+    }
+    public async Task pressedShoppingCart()
+    {
+        collapseShoppingCart = !collapseShoppingCart;
+        // if cart is open, let it be open for an amount of time, then close
+        if(collapseShoppingCart == false) {
+            await Task.Delay(4200);
+            collapseShoppingCart = true;
+            StateHasChanged();
+        }
+        collapseNotifications = true;
+    }
+
+    private void pressedNotifications()
+    {
+        collapseNotifications = !collapseNotifications;
+        collapseShoppingCart = true;
+    }
+
+    private void pressedPhonecollapseShoppingCart()
+    {
+        phoneCollapseShoppingCart = false;
+    }
+
+    private void pressedClosePhonecollapseShoppingCart()
+    {
+        phoneCollapseShoppingCart = true;
+    }
+
+    private void pressedPhoneCollapseNotifications()
+    {
+        phoneCollapseNotifications = false;
+    }
+
+    private void pressedClosePhoneCollapseNotifications()
+    {
+        phoneCollapseNotifications = true;
+    }
+}

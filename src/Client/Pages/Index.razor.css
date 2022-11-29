@@ -1,0 +1,38 @@
+﻿
+/*---- MAIN START ----*/
+
+.iconbtns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30rem;
+}
+
+.iconbtns > div > a {
+    background-color: white;
+    transition-duration: 500ms;
+    border: none;
+    border-radius: 10%;
+    margin: 6em;
+    padding: 6em;
+}
+
+    .iconbtns > div > a:hover {
+        background-color: #fad2d1;
+        transition-duration: 500ms;
+        border: none;
+        border-radius: 10%;
+        margin: 6em;
+        padding: 6em;
+    }
+
+/*.content {
+    display: flex;
+    background-color: #d9d9d9;
+    border-radius: 5%;
+    height: 85vh;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}*/
+/*---- MAIN END ----*/

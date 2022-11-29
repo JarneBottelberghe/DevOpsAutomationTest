@@ -1,0 +1,54 @@
+﻿@page "/orders"
+@using BlazorDateRangePicker
+
+<PageTitle>Orders</PageTitle>
+
+
+<div class="content">
+    <div class="top">
+        <div class="title">Mijn Bestellingen</div>
+        <div class="searchComp">
+            <DateRangePicker class="form-control" placeholder="Filter datum..." OnRangeSelect="OnRangeSelect" ApplyLabel="Zoek" CancelLabel="Annuleer" />
+            <div class="searchfield">
+                <input type="text" @bind="@OrderNr" placeholder="Zoek bestelling..." @oninput="@((e) => {OrderNr = (string) e.Value;})"/>
+            </div>
+            <button @onclick="FindOrders">ZOEK</button>
+        </div>
+    </div>
+    <div class="orderTable">
+        <table>
+            <thead>
+                <tr>
+                    <th><button @onclick="SortDate" class="sortButton">Datum <img class="sortImage" src="/images/sortArrow.png" /></button></th>
+                    <th>Referentie</th>
+                    <th>Bestel Nr</th>
+                    <th><button @onclick="SortStatus" class="sortButton">Status <img class="sortImage" src="/images/sortArrow.png" /></button></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (orders == null)
+                {
+                    <p>Loading.... </p>
+                }
+                else
+                {
+                    @foreach (var o in orders)
+                    {
+                        <tr>
+                            <td>@o.OrderDate.ToShortDateString()</td>
+                            <td>@o.Reference</td>
+                            <td>@o.OrderId</td>
+                            <td>@Enum.GetName(typeof(OrderStatus), o.OrderStatus)</td>
+                            <td>
+                                <a href="orders/@o.OrderId" class="arrow">
+                                    <img src="/images/arrowRight.svg" />
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

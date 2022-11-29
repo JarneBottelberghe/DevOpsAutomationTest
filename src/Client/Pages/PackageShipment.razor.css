@@ -1,0 +1,68 @@
+﻿/*---- TOP START ----*/
+.top {
+  background-color: white;
+  display: flex;
+  border-bottom: 0.1rem solid gray;
+  padding: 1rem;
+  padding-bottom: 0;
+  margin-bottom: 1rem;
+}
+.top > .title {
+  font-weight: lighter;
+  color: grey;
+  align-self: flex-end;
+  font-size: xx-large;
+}
+
+/*---- TOP END ----*/
+
+/*---- MIDDLE CONTENT START ----*/
+.info {
+  width: 16rem;
+  height: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.boxOrder,
+.representation {
+  width: 16rem;
+  height: 25rem;
+  display: flex;
+}
+.boxOrder {
+  align-items: center;
+}
+.representation {
+  justify-content: center;
+  align-items: center;
+}
+.mainContent {
+  display: grid;
+  grid-gap: 10px;
+  margin: 1rem;
+  grid-template-areas:
+    "info  info "
+    "boxOrder   representation"
+    "boxOrder   representation";
+}
+.mainContent > div {
+  width: inherit;
+}
+
+.info {
+
+  grid-area: info;
+}
+.boxOrder {
+  grid-area: boxOrder;
+  display: flex;
+  flex-direction: column;
+  
+}
+.representation {
+  grid-area: representation;
+  max-width: fit-content;
+}
+
+/*---- MIDDLE CONTENT END ----*/

@@ -1,0 +1,26 @@
+﻿@page "/notificationPage"
+
+
+<div class="content">
+    
+    <div>
+        <h1>Meldingen</h1>
+    </div>
+    <div class="notificationContainer">
+        @foreach(var noti in AllNotifications){
+            if (noti != null)
+            {
+                if (noti.Message != null)
+                {
+                    <div>
+                        <a href="orders/@noti.ordId">
+                            <img src="/images/NotificationTruck.png" />
+                            <p>@noti.Message.ToString()</p>
+                        </a>
+                        <button>X</button>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>

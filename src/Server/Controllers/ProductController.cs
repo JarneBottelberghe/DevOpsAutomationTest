@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using Shared.Products;
-using System.Threading.Tasks;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Server.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class ProductController : ControllerBase
     {
+
         private readonly IProductService productService;
 
         public ProductController(IProductService productService)
@@ -15,35 +17,44 @@ namespace Server.Controllers
             this.productService = productService;
         }
 
-
+        [SwaggerOperation("Returns a list of products available.")]
         [HttpGet]
-        public Task<ProductResponse.GetIndex> GetIndexAsync([FromQuery] ProductRequest.GetIndex request)
+        public async Task<ProductDto.Index> GetIndex()
         {
-            return productService.GetIndexAsync(request);
+            return (ProductDto.Index)await productService.GetIndexAsync();
         }
 
-        [HttpGet("{ProductId}")]
-        public Task<ProductResponse.GetDetail> GetDetailAsync([FromRoute] ProductRequest.GetDetail request)
+        [SwaggerOperation("Returns a specific product available.")]
+        [HttpGet("{productId}")]
+        public async Task<ProductDto.Detail> GetDetail(int productId)
         {
-            return productService.GetDetailAsync(request);
+            return await productService.GetDetailAsync(productId);
         }
 
-        [HttpDelete("{ProductId}")]
-        public Task DeleteAsync([FromRoute] ProductRequest.Delete request)
-        {
-            return productService.DeleteAsync(request);
-        }
-
+        [SwaggerOperation("Creates a new product in the catalog.")]
         [HttpPost]
-        public Task<ProductResponse.Create> CreateAsync([FromBody] ProductRequest.Create request)
+        public async Task<IActionResult> Create(ProductDto.Mutate model)
         {
-            return productService.CreateAsync(request);
+            var productId = await productService.CreateAsync(model);
+            return CreatedAtAction(nameof(Create), new { id = productId });
         }
 
-        [HttpPut]
-        public Task<ProductResponse.Edit> EditAsync([FromBody] ProductRequest.Edit request)
+        [SwaggerOperation("Edites an existing product.")]
+        [HttpPut("{productId}")]
+        public async Task<IActionResult> Edit(int productId, ProductDto.Mutate model)
         {
-            return productService.EditAsync(request);
+            await productService.EditAsync(productId, model);
+            return NoContent();
         }
+
+        [SwaggerOperation("Deletes an existing product.")]
+        [HttpDelete("{productId}")]
+        public async Task<IActionResult> Delete(int productId)
+        {
+            await productService.DeleteAsync(productId);
+            return NoContent();
+        }
+
+       
     }
 }

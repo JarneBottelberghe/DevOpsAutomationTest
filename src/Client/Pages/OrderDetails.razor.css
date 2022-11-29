@@ -1,0 +1,122 @@
+﻿@media only screen and (min-width: 1200px) {
+    /*---- TOP START ----*/
+    .top {
+        background-color: white;
+        display: flex;
+        border-bottom: 0.1rem solid gray;
+        padding: 1rem;
+        padding-bottom: 0;
+        margin-bottom: 1rem;
+    }
+
+        .top > .title {
+            font-weight: lighter;
+            color: grey;
+            align-self: flex-end;
+            font-size: xx-large;
+        }
+
+    /*---- TOP END ----*/
+
+    /*---- MIDDLE CONTENT START ----*/
+    .address,
+    .map,
+    .orderInfo,
+    .log,
+    .status {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mainContent {
+        width: 100%;
+        display: grid;
+        grid-gap: 10px;
+        grid-template-areas:
+            "status  status "
+            "address_map   orderInfo"
+            "address_map   log";
+    }
+
+        .mainContent > div {
+            width: inherit;
+        }
+
+    .address_map {
+        grid-area: address_map;
+        height: auto !important;
+    }
+
+        .address_map > div {
+            width: auto;
+        }
+
+    .address {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 16px;
+    }
+
+    p.address {
+        margin-bottom: 0px;
+    }
+
+    .orderInfo {
+        grid-area: orderInfo;
+    }
+
+    .log {
+        grid-area: log;
+    }
+
+    .status {
+        grid-area: status;
+    }
+
+    .feedback {
+        position: absolute;
+        right: 0px;
+        bottom: 5px;
+        border: none;
+        background-color: transparent;
+    }
+}
+/*---- MIDDLE CONTENT END ----*/
+@media only screen and (max-width: 1200px) {
+    .top {
+        background-color: white;
+        display: flex;
+        border-bottom: 0.1rem solid gray;
+        padding: 1rem;
+        padding-bottom: 0;
+        margin-bottom: 1rem;
+    }
+
+        .top > .title {
+            font-weight: lighter;
+            color: grey;
+            align-self: flex-end;
+            font-size: xx-large;
+        }
+
+    .mainContent{
+        display:flex;
+        flex-direction: column;
+        align-items:center;
+        gap: 10px;
+    }
+    
+    .address{
+        text-align:center;
+    }
+
+    .feedback {
+        position: absolute;
+        right: 0px;
+        bottom: 5px;
+        border: none;
+        background-color: transparent;
+    }
+}

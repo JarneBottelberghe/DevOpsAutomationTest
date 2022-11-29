@@ -1,0 +1,94 @@
+﻿@using Client.Components.Products
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p><b>Producten:</b></p>
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">Aantal</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Prijs(€)</th>
+                        <th scope="col">Volume(m³)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var item in Cart.Items) {
+                        <tr>
+                            <th scope="row">@item.Quantity</th>
+                            <td>@item.Product.ProductName</td>
+                            <td>@item.TotalPrice</td>
+                            <td>
+                                @String.Format("{0:0.####}", item.Product.Width*item.Product.Height*item.Product.Depth) * @item.Quantity = @String.Format("{0:0.####}", item.Product.Width*item.Product.Height*item.Product.Depth * @item.Quantity)
+                            </td>
+                        </tr>   
+                    }
+                    <tr>
+                        <th scope="row" colspan="3"><p><b>Totaal:</b>@Cart.Items.Select(i => i.TotalPrice *i.Quantity).Sum().ToString("C")</p></th>
+                        <td><b>@String.Format("{0:0.####}", Cart.Items.Select(i => i.Product.Width * i.Product.Height * i.Product.Depth * i.Quantity).Sum())</b></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="choiceOfBox">
+        <label for="boxType">Type doos: </label>
+        <select name="boxType" id="boxType" @bind=BoxType>
+            <option value="">-- Maak een keuze --</option>
+            <option value="standardBox">Standaard dozen</option>
+            <option value="tailerMadeBox">Aangepaste dozen</option>
+        </select>
+
+        <div class="format">
+            <div style="display: @(BoxType == "standardBox"  ? "block" : "none");">
+                Formaat:<br />
+                <p>Breedte = 1m<br /></p>
+                <p>Hoogte = 1m<br /></p>
+                <p>Diepte = 1m<br /></p>
+                <button @onclick="BerekenPrijs">Bereken prijs</button>
+            </div>
+
+            <div style="display: @(BoxType == "tailerMadeBox"  ? "block" : "none");">
+                Formaat:<br />
+                <p>Breedte = <input class="inputNumber" type="number" @bind="@Breedte" placeholder="1" /> m<br /></p>
+                <p>Hoogte = <input class="inputNumber" type="number" @bind="@Hoogte" placeholder="1" /> m<br /></p>
+                <p>Diepte = <input class="inputNumber" type="number" @bind="@Diepte" placeholder="1" /> m<br /></p>
+                <button @onclick="BerekenPrijs">Bereken prijs</button>
+            </div>
+        </div>
+    </div>
+        </div>
+        <div class="col-6">
+            <div class="boxOrderGrid">
+        
+                <p><b>Subtotaal:</b></p>
+                <p><b>€@PrijsSubTotaal</b></p>
+                <p class="subTask">+ @AantalPaletten paletten</p>
+                <p class="subTaskPrice">€@PrijsPaletten</p>
+                <p class="subTask">+ @AantalDozen dozen</p>
+                <p class="subTaskPrice">€@PrijsDozen</p>
+                <p class="subTask">+ verzending</p>
+                <p class="subTaskPrice">€@PrijsVerzending</p>
+                <p><b>Totaal:</b></p>
+                <p><b>€@PrijsTotaal</b></p>
+                <button>Plaats een bestelling</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="contentBoxOrder">
+    
+
+    
+</div>
+@code {
+
+    [Inject] public ShoppingCartState Cart { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync() {
+        Cart.OnChange += StateHasChanged;
+    }
+}

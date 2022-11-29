@@ -1,0 +1,21 @@
+﻿<tr>
+    <td><button @onclick="ShowDetails" class="btn btn-outline-danger">@Product.Name</button></td>
+    <td>@Product.Description</td>
+    <td>@Product.UnitPrice.ToString("C")</td>
+
+    <td>
+        <button class="btn btn-dark" @onclick="AddProduct">Voeg Toe</button>
+    </td>
+</tr>
+@if (DetailsShown)
+{
+    <tr>
+        <td colspan="4">
+            <p><b>Afmetingen:</b></p>
+           <small>
+                @String.Format("Breedte: {0} m\t Hoogte: {1} m\t Diepte: {2} m", Product.Width, Product.Height, Product.Depth)
+           </small>
+            <p><b>Aantal beschikbaar:</b> @Product.LeftInStock</p>
+        </td>
+    </tr>
+}

@@ -1,0 +1,34 @@
+﻿@page "/packageShipment"
+@using Client.Components.PackageShipment
+
+
+<div class="content">
+    <div class="top">
+        <div class="title">
+            Verzenden
+        </div>
+    </div>
+
+    <div class="mainContent">
+        <!--<div class="info"> <Info /></div>-->
+        <button @onclick="ContinueShopping" class="btn btn-sm btn-dark">Verder Winkelen</button>
+
+        <div class="boxOrder">
+           <BoxOrder />
+        </div>
+        <div class="representation">
+            <Representation />
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Inject] public NavigationManager NavigationManager { get; set; } = default!;
+
+
+    private void ContinueShopping()
+    {
+        NavigationManager.NavigateTo("/products");
+    }
+}

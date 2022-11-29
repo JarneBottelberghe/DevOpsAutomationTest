@@ -1,45 +1,43 @@
-﻿using FluentValidation;
-using Shared.Products.Categories;
+﻿namespace Shared.Products
 
-namespace Shared.Products
 {
     public static class ProductDto
     {
         public class Index
         {
-            public int Id { get; set; }
+            public string ProductId { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
-            public decimal Price { get; set; }
-            public string Imagepath { get; set; }
-        }
+            public double UnitPrice { get; set; }
+            public int LeftInStock { get; set; }
+            public double Height { get; set; }
+            public double Width { get; set; }
+            public double Depth { get; set; }
 
-        public class Detail : Index
+        }
+        public class Detail
         {
-            public bool IsEnabled { get; set; }
-            public bool IsInStock { get; set; }
-            public CategoryDto.Index Category { get; set; }
+            public string ProductId { get; set; }
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public double UnitPrice { get; set; }
+            public string SupplierId { get; set; }
+            public int ProductCategoryId { get; set;}   
+
         }
 
         public class Mutate
         {
+            public string ProductId { get; set; }
             public string Name { get; set; }
-            public decimal Price { get; set; }
             public string Description { get; set; }
-            public int CategoryId { get; set; }
-            public bool InStock { get; set; }
-            public int ImageAmount { get; set; }
-
-            public class Validator : AbstractValidator<Mutate>
-            {
-                public Validator()
-                {
-                    RuleFor(x => x.Name).NotEmpty().Length(1, 250);
-                    RuleFor(x => x.Price).InclusiveBetween(1, 250);
-                    RuleFor(x => x.CategoryId).NotEmpty();
-                    //RuleFor(x => x.ImageAmount).GreaterThanOrEqualTo(1);
-                }
-            }
+            public double UnitPrice { get; set; }
+            public int LeftInStock { get; set; }
+            public double height { get; set; }
+            public double width { get; set; }
+            public double depth { get; set; }
+            public string SupplierId { get; set; }
+            public int ProductCategoryId { get; set; }
         }
     }
 }

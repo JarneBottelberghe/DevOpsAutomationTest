@@ -1,0 +1,30 @@
+﻿.infoPackageAndTracking{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.infoPackage {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 20px;
+    background-color: #ECECEC;
+    padding: 24px;
+    padding-right: 200px;
+}
+
+.infoBox{
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 20px;
+}
+
+.infoTracking {
+    background-color: #E4E4E4;
+    padding: 24px;
+    padding-right: 200px;
+}
+
+.liImage{
+    list-style-image: image('../../wwwroot/images/trackingSymbolDownBlackTiny.png');
+}

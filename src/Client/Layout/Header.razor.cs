@@ -1,39 +1,55 @@
-﻿using Append.Blazor.Sidepanel;
-using Client.Ordering;
-using Client.Ordering.Components;
+using Client.Components.Products;
+using Domain;
 using Microsoft.AspNetCore.Components;
-using System;
+using Shared.Orders;
 
-namespace Client.Layout
+namespace Client.Layout;
+public partial class Header
 {
-    public partial class Header : IDisposable
+    [Inject] public IOrderService? OrderServiceHead { get; set; }
+    [Inject] public ShoppingCartState ShoppingCart { get; set; } = default!;
+    private string? OrderNrHead { get; set; }
+
+    public List<Notification>? AllNotificationsHead;
+    private IEnumerable<OrderDto.Index>? ordersHead;
+
+
+    protected override async Task OnInitializedAsync()
     {
-        private bool isOpen;
-        private string isOpenClass => isOpen ? "is-active" : null;
-
-        [Inject] public ISidepanelService Sidepanel { get; set; }
-        [Inject] public Cart Cart { get; set; }
-
-        protected override void OnInitialized()
+        // shopping cart
+        ShoppingCart.OnChange += () => StateHasChanged();
+        ShoppingCart.OnAdded += () => {
+            StateHasChanged();
+            System.Console.Out.WriteLine($"collapsed = {collapseShoppingCart}");
+            // if cart is collapsed, click on it when product is added
+            if(collapseShoppingCart == true)
+            {
+                pressedShoppingCart();
+            }
+        };
+        // notifications
+        AllNotificationsHead = new List<Notification>();
+        if (OrderServiceHead != null)
         {
-            Cart.OnCartChanged += StateHasChanged;
+            ordersHead = await OrderServiceHead.GetOrdersAsync();
         }
-
-        public void Dispose()
+        if (ordersHead != null)
         {
-            Cart.OnCartChanged -= StateHasChanged;
-        }
+            foreach (OrderDto.Index item in ordersHead)
+            {
+                item.notifications.ForEach(noti => AllNotificationsHead.Add(noti));
 
-        private void ToggleMenuDisplay()
-        {
-            isOpen = !isOpen;
+            }
         }
-
-        private void OpenShoppingCart()
-        {
-            Sidepanel.Open<ShoppingCart>("Winkelwagen");
-        }
-
 
     }
+
+    //private void FindNotifications()
+    //{
+    //    foreach (OrderDto.Index item in orders)
+    //    {
+    //        item.notifications.ForEach(noti => AllNotifications.Add(noti));
+    //    }
+    //}
+
 }

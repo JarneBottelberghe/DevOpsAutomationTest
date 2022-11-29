@@ -1,0 +1,148 @@
+﻿/*---- TOP START ----*/
+.top {
+    background-color: white;
+    display: flex;
+    border-bottom: 0.1rem solid gray;
+    padding: 1rem;
+    padding-bottom: 0;
+    margin-bottom: 1rem;
+}
+
+    .top > .title {
+        font-weight: lighter;
+        color: grey;
+        align-self: flex-end;
+        font-size: xx-large;
+    }
+
+    .top > .searchComp {
+        margin-left: auto;
+        display: flex;
+        justify-content: end;
+        height: fit-content;
+        padding-bottom: 0.5rem;
+    }
+
+        .top > .searchComp > .searchfield > input[type="text"] {
+            background-color: #e8e6e6;
+            transition-duration: 500ms;
+            margin-left: 1.5rem;
+            margin-right: 0.5rem;
+            padding-bottom: 0.3rem;
+            padding-top: 0.3rem;
+            padding-left: 1rem;
+            padding-right: 3rem;
+            border: 0.1rem solid transparent;
+            border-radius: 1rem;
+        }
+
+        .top > .searchComp > .searchfield > input[type="text"]:hover {
+            background-color: #cecaca;
+            transition-duration: 500ms;
+            margin-left: 1.5rem;
+            margin-right: 0.5rem;
+            padding-bottom: 0.3rem;
+            padding-top: 0.3rem;
+            padding-left: 1rem;
+            padding-right: 3rem;
+            border: 0.1rem solid transparent;
+            border-radius: 1rem;
+        }
+
+        .top > .searchComp > button {
+            color: white;
+            transition-duration: 500ms;
+            background-color: #ec4842;
+            border: 0.1rem solid transparent;
+            border-radius: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .top > .searchComp > button:hover {
+            color: white;
+            transition-duration: 500ms;
+            background-color: #d11b15;
+            border: 0.1rem solid transparent;
+            border-radius: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .top > .searchComp > DateRangePicker {
+            background-color: #e8e6e6;
+            border: 0.1rem solid transparent;
+            border-radius: 1rem;
+        }
+
+.arrow {
+    border: none;
+    background-color: transparent;
+}
+
+.sortButton {
+    display:flex;
+    border:none;
+    font-weight:bold;
+    background-color: transparent;
+    margin:auto;
+    padding-left:1.5rem;
+    }
+
+.sortButton > img {
+    width: 18%;
+    margin: auto;
+    margin-left: -0.1rem;
+}
+/*---- TOP END ----*/
+/*---- ORDERTABLE START ----*/
+
+.orderTable {
+    width: 100%;
+    background-color: white;
+    margin-left: auto;
+}
+
+    .orderTable > table {
+        border-collapse: collapse;
+        width: inherit;
+    }
+
+        .orderTable > table > thead {
+            border-bottom: 0.1rem solid black;
+            text-align: center;
+        }
+
+        .orderTable > table > thead > tr > th > button > img {
+            margin-left: 0.5rem;
+        }
+
+        .orderTable > table > tbody {
+            text-align: center;
+        }
+
+            .orderTable > table > tbody > tr:nth-of-type(even) {
+                background-color: white;
+                transition-duration: 500ms;
+            }
+
+            .orderTable > table > tbody > tr:nth-of-type(even):hover {
+                background-color: #d9d9d9;
+                transition-duration: 500ms;
+            }
+
+            .orderTable > table > tbody > tr:nth-of-type(odd) {
+                background-color: #eff7ff;
+                transition-duration: 500ms;
+            }
+
+            .orderTable > table > tbody > tr:nth-of-type(odd):hover {
+                background-color: #cce6ff;
+                transition-duration: 500ms;
+            }
+
+            .orderTable > table > tbody > tr > td {
+                padding: 0.5rem 0 0.5rem 1rem;
+            }
+
+/*---- ORDERTABLE END ----*/
